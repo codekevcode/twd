@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Twod</title>
+  <title>TWD</title>
 
   <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootswatch/3.0.2/united/bootstrap.min.css">
   <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.2/css/font-awesome.min.css">
@@ -40,8 +40,12 @@
       <ul class="nav navbar-nav">
         <li><%= link_to "About", pages_about_path %></li>
         <li><%= link_to "Service", pages_services_path %></li>
+        <% if user_signed_in? %>
+        <li>Welcome <%= current_user.email %>!</li>
+        
+        
       </ul>
-    
+    <% end %>
        <div class="form-group search col-md-2 col pull-right">
     <input type="text" class="form-control" placeholder="Search">
   </div>
@@ -49,6 +53,13 @@
      
     </div><!-- /.navbar-collapse --> 
   </nav>
+<div class="container">
+  <div class="pull-right">
+    <% if user_signed_in? %>
+      <%= link_to "Sign Out", destroy_user_session_path, method: :delete, class: "btn btn-danger" %>
+    <% end %>
+  </div>
+</div>
 
   <div class="container">
     <% if notice.present? %>
@@ -56,6 +67,8 @@
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
         <%= notice %>
       </div>
+      <p class="notice"><%= notice %></p>
+       <p class="alert"><%= alert %></p>
     <% end %>
 
     <%= yield %>
